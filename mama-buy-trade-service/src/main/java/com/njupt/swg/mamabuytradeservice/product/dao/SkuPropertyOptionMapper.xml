@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njupt.swg.mamabuytradeservice.product.dao.SkuPropertyOptionMapper" >
+  <resultMap id="BaseResultMap" type="com.njupt.swg.mamabuytradeservice.product.entity.SkuPropertyOption" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+    <result column="property_id" property="propertyId" jdbcType="BIGINT" />
+    <result column="property_option_id" property="propertyOptionId" jdbcType="BIGINT" />
+    <result column="enable_flag" property="enableFlag" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sku_id, property_id, property_option_id, enable_flag, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sku_property_option
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_sku_property_option
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.SkuPropertyOption" >
+    insert into t_sku_property_option (id, sku_id, property_id, 
+      property_option_id, enable_flag, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, #{propertyId,jdbcType=BIGINT}, 
+      #{propertyOptionId,jdbcType=BIGINT}, #{enableFlag,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.SkuPropertyOption" >
+    insert into t_sku_property_option
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="propertyId != null" >
+        property_id,
+      </if>
+      <if test="propertyOptionId != null" >
+        property_option_id,
+      </if>
+      <if test="enableFlag != null" >
+        enable_flag,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyId != null" >
+        #{propertyId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyOptionId != null" >
+        #{propertyOptionId,jdbcType=BIGINT},
+      </if>
+      <if test="enableFlag != null" >
+        #{enableFlag,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.SkuPropertyOption" >
+    update t_sku_property_option
+    <set >
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyId != null" >
+        property_id = #{propertyId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyOptionId != null" >
+        property_option_id = #{propertyOptionId,jdbcType=BIGINT},
+      </if>
+      <if test="enableFlag != null" >
+        enable_flag = #{enableFlag,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.SkuPropertyOption" >
+    update t_sku_property_option
+    set sku_id = #{skuId,jdbcType=BIGINT},
+      property_id = #{propertyId,jdbcType=BIGINT},
+      property_option_id = #{propertyOptionId,jdbcType=BIGINT},
+      enable_flag = #{enableFlag,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

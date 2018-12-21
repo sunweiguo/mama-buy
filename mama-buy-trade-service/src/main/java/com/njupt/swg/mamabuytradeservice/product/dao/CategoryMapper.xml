@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njupt.swg.mamabuytradeservice.product.dao.CategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.njupt.swg.mamabuytradeservice.product.entity.Category" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="CategoryResultMap" type="com.njupt.swg.mamabuytradeservice.product.entity.Category" >
+    <id column="p_id" property="id" jdbcType="BIGINT" />
+    <result column="p_parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="p_name" property="name" jdbcType="VARCHAR" />
+    <result column="p_status" property="status" jdbcType="BIT" />
+    <result column="p_sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="p_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="p_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <collection property="children" resultMap="ChildrenResultMap"/>
+  </resultMap>
+  <resultMap id="ChildrenResultMap" type="com.njupt.swg.mamabuytradeservice.product.entity.Category" >
+    <id column="c_id" property="id" jdbcType="BIGINT" />
+    <result column="c_parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="c_name" property="name" jdbcType="VARCHAR" />
+    <result column="c_status" property="status" jdbcType="BIT" />
+    <result column="c_sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="c_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="c_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_id, name, status, sort_order, create_time, update_time
+  </sql>
+  <sql id="Category_Column_List" >
+    p.id p_id, p.parent_id p_parent_id, p.name p_name, p.status p_status, p.sort_order p_sort_order,
+    p.create_time p_create_time, p.update_time p_update_time
+  </sql>
+  <sql id="Children_Column_List" >
+    c.id c_id, c.parent_id c_parent_id, c.name c_name, c.status c_status, c.sort_order c_sort_order,
+    c.create_time c_create_time, c.update_time c_update_time
+  </sql>
+  <select id="selectAll" resultMap="CategoryResultMap" >
+    select 
+    <include refid="Category_Column_List" />,
+    <include refid="Children_Column_List" />
+    from t_category p
+    left join t_category c on c.parent_id = p.id
+    where p.parent_id = 0 and c.status = 1 and p.status=1
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  select
+  <include refid="Base_Column_List" />
+  from t_category
+  where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_category
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Category" >
+    insert into t_category (id, parent_id, name, 
+      status, sort_order, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Category" >
+    insert into t_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sortOrder != null" >
+        sort_order,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="sortOrder != null" >
+        #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Category" >
+    update t_category
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="sortOrder != null" >
+        sort_order = #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Category" >
+    update t_category
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      sort_order = #{sortOrder,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

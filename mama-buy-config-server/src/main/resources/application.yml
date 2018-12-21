@@ -1,0 +1,32 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/sunweiguo/spring-cloud-config-center.git
+          username: sunweiguo
+          password: 22daguozi
+          search-paths: gateway-config,user-service-config,trade-service-config,stock-service-config,common-config,key-generator-config,scheduler-config
+    bus:
+      trace:
+        enabled: true
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          zk-nodes: 127.0.0.1:2181
+          auto-create-topics: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+  instance:
+    ip-address: 111.231.119.253 # ����ע�������������Ĺ���ip��github�����������ʵ�
+    prefer-ip-address: true
+management:
+  security:
+    enabled: false

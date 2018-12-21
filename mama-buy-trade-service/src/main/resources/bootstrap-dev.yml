@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${kafka.brokers.host}
+          zk-nodes: ${zookeeper.host}
+          auto-create-topics: true
+      bindings:
+        input:
+          destination: dis-transation
+          group: point-group
+  redis:
+    node: ${redis.host}
+sharding:
+  jdbc:
+    datasource:
+      names: ds
+      ds:
+        url: jdbc:mysql://127.0.0.1:3306/mama-buy-trade
+        username: root
+        password: root
+zk:
+  host: ${zookeeper.host}
+es:
+  host: ${elastic.search.host}

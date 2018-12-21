@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njupt.swg.mamabuytradeservice.product.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.njupt.swg.mamabuytradeservice.product.entity.Product" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
+    <result column="brand_id" property="brandId" jdbcType="BIGINT" />
+    <result column="spu_name" property="spuName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ProductResultMapWithSku" type="com.njupt.swg.mamabuytradeservice.product.entity.Product" >
+    <id column="p_id" property="id" jdbcType="BIGINT" />
+    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
+    <result column="brand_id" property="brandId" jdbcType="BIGINT" />
+    <result column="spu_name" property="spuName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="p_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="p_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <collection property="skuList" resultMap="SkuResultMap"/>
+  </resultMap>
+  <resultMap id="SkuResultMap" type="com.njupt.swg.mamabuytradeservice.product.entity.ProductSku" >
+    <id column="s_id" property="id" jdbcType="BIGINT" />
+    <result column="spu_id" property="spuId" jdbcType="BIGINT" />
+    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+    <result column="sku_price" property="skuPrice" jdbcType="DECIMAL" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="enable_flag" property="enableFlag" jdbcType="TINYINT" />
+    <result column="s_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="s_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <collection property="skuPropertyOptions" resultMap="SkuPropertyOptionResultMap"/>
+  </resultMap>
+  <resultMap id="SkuPropertyOptionResultMap" type="com.njupt.swg.mamabuytradeservice.product.entity.SkuPropertyOption" >
+    <id column="o_id" property="id" jdbcType="BIGINT" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+    <result column="property_id" property="propertyId" jdbcType="BIGINT" />
+    <result column="property_option_id" property="propertyOptionId" jdbcType="BIGINT" />
+    <result column="enable_flag" property="enableFlag" jdbcType="TINYINT" />
+    <result column="o_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="o_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, category_id, brand_id, spu_name, price, status, create_time, update_time
+  </sql>
+  <sql id="Product_Column_List" >
+    p.id p_id, category_id, brand_id, spu_name, price, status, p.create_time p_create_time, p.update_time p_update_time
+  </sql>
+  <sql id="Sku_Column_List" >
+    s.id s_id, spu_id, sku_name, sku_price, img_url, s.enable_flag s_enable_flag, s.create_time s_create_time, s.update_time s_update_time
+  </sql>
+  <sql id="Sku_Option_Column_List" >
+    o.id o_id, sku_id, property_id, property_option_id, o.enable_flag o_enable_flag, o.create_time o_create_time, o.update_time o_update_time
+  </sql>
+  <select id="selectByCategory" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_product
+    where category_id = #{categoryId} and status =1
+  </select>
+
+  <select id="selectByPrimaryKeyWithSku" resultMap="ProductResultMapWithSku" parameterType="java.lang.Long" >
+    select
+    <include refid="Product_Column_List" />,
+    <include refid="Sku_Column_List" />,
+    <include refid="Sku_Option_Column_List" />
+    from t_product p
+    left join t_sku s on s.spu_id = p.id
+    left join t_sku_property_option o on  o.sku_id = s.id
+    where p.id = #{id,jdbcType=BIGINT} and s.enable_flag = 1 and o.enable_flag = 1
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from t_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Product" >
+    insert into t_product (id, category_id, brand_id, 
+      spu_name, price, status, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT},
+      #{spuName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Product" >
+    insert into t_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="spuName != null" >
+        spu_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="spuName != null" >
+        #{spuName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Product" >
+    update t_product
+    <set >
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="spuName != null" >
+        spu_name = #{spuName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njupt.swg.mamabuytradeservice.product.entity.Product" >
+    update t_product
+    set category_id = #{categoryId,jdbcType=BIGINT},
+      brand_id = #{brandId,jdbcType=BIGINT},
+      spu_name = #{spuName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

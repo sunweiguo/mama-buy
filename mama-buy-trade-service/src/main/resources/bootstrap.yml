@@ -1,0 +1,59 @@
+# 高优先级启动
+server:
+  port: 8003
+spring:
+  application:
+    name: trade-service # 与git仓库中的配置文件要一致
+  profiles:
+    active: dev
+  cloud:
+    config:
+      profile: dev # 这个结合name找到配置文件
+      discovery:
+        enabled: true
+        service-id: config-server #config服务名字
+eureka:
+  client:
+    service-url:
+      defaultZone: http://111.231.119.253:8761/eureka
+#    instance:
+#      ip-address:
+#      prefer-ip-address: true
+sharding:
+  jdbc:
+    datasource:
+      names: ds
+      ds:
+        name: user
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    config:
+      sharding:
+        tables:
+          t_trade:
+            actual-data-nodes: ds.t_trade_${0..2}
+            table-strategy:
+              inline:
+                sharding-column: trade_no
+                algorithm-expression: t_trade_${trade_no % 3}
+          t_trade_item:
+            actual-data-nodes: ds.t_trade_item_${0..2}
+            table-strategy:
+              inline:
+                sharding-column: trade_no
+                algorithm-expression: t_trade_item_${trade_no % 3}
+logging:
+  config: classpath:logback.xml

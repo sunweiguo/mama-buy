@@ -1,0 +1,54 @@
+# 高优先级启动
+server:
+  port: 8002
+spring:
+  application:
+    name: user-service # 与git仓库中的配置文件要一致
+  profiles:
+    active: dev
+  cloud:
+    config:
+      profile: dev # 这个结合name找到配置文件
+      discovery:
+        enabled: true
+        service-id: config-server #config服务名字
+eureka:
+  client:
+    service-url:
+      defaultZone: http://111.231.119.253:8761/eureka
+sharding:
+  jdbc:
+    datasource:
+      names: ds
+      ds:
+        name: user
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    config:
+      sharding:
+        tables:
+          t_user:
+            actual-data-nodes: ds.t_user_${0..2} # 分的表名
+            key-generator-column-name: uuid #用雪花算法自动生成保证不重复
+            table-strategy:
+              inline:
+                sharding-column: uuid # 按照uuid进行分表
+                algorithm-expression: t_user_${uuid % 3} # 分表的算法，取模
+#    instance:
+#      ip-address:
+#      prefer-ip-address: true
+logging:
+  config: classpath:logback.xml
