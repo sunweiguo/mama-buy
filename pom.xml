@@ -20,6 +20,8 @@
         <module>mama-buy-config-server</module>
         <module>mama-buy-user-service</module>
         <module>mama-buy-trade-service</module>
+        <module>mama-buy-stock-service</module>
+        <module>mama-buy-schedule-service</module>
     </modules>
 
     <properties>

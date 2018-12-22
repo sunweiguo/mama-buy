@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${kafka.brokers.host}
+          zk-nodes: ${zookeeper.host}
+          auto-create-topics: true
+      bindings:
+        input:
+          destination: dis-transation
+          group: point-group
+  datasource:
+    stock:
+      url: jdbc:mysql://127.0.0.1:3306/mama-buy-stock
+      username: root
+      password: root
+
+
+regCenter:
+  serverList: ${zookeeper.host}
+  namespace: elastic-job-lite-springboot
+stockJob:
+  cron: 0/5 * * * * ?
+  shardingTotalCount: 1 #只分一片
+  shardingItemParameters: 0=nanjing

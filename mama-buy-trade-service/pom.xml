@@ -11,7 +11,7 @@
     <artifactId>mama-buy-trade-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mama-buy-trade-service</name>
-    <description>交易工程</description>
+    <description>码码购交易工程</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

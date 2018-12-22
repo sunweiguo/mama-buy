@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njupt.swg.mamabuystockservice.stock.dao.StockFlowMapper" >
+  <resultMap id="BaseResultMap" type="com.njupt.swg.mamabuystockservice.stock.entity.StockFlow" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="BIGINT" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+    <result column="stock_before" property="stockBefore" jdbcType="INTEGER" />
+    <result column="stock_after" property="stockAfter" jdbcType="INTEGER" />
+    <result column="stock_change" property="stockChange" jdbcType="INTEGER" />
+    <result column="lock_stock_before" property="lockStockBefore" jdbcType="INTEGER" />
+    <result column="lock_stock_after" property="lockStockAfter" jdbcType="INTEGER" />
+    <result column="lock_stock_change" property="lockStockChange" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no,sku_id, stock_before, stock_after, stock_change, lock_stock_before, lock_stock_after,
+    lock_stock_change, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_stock_flow
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_stock_flow
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.njupt.swg.mamabuystockservice.stock.entity.StockFlow" >
+    insert into t_stock_flow (id, order_no,sku_id, stock_before,
+      stock_after, stock_change, lock_stock_before, 
+      lock_stock_after, lock_stock_change, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, #{stockBefore,jdbcType=INTEGER},
+      #{stockAfter,jdbcType=INTEGER}, #{stockChange,jdbcType=INTEGER}, #{lockStockBefore,jdbcType=INTEGER}, 
+      #{lockStockAfter,jdbcType=INTEGER}, #{lockStockChange,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njupt.swg.mamabuystockservice.stock.entity.StockFlow" >
+    insert into t_stock_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="stockBefore != null" >
+        stock_before,
+      </if>
+      <if test="stockAfter != null" >
+        stock_after,
+      </if>
+      <if test="stockChange != null" >
+        stock_change,
+      </if>
+      <if test="lockStockBefore != null" >
+        lock_stock_before,
+      </if>
+      <if test="lockStockAfter != null" >
+        lock_stock_after,
+      </if>
+      <if test="lockStockChange != null" >
+        lock_stock_change,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="stockBefore != null" >
+        #{stockBefore,jdbcType=INTEGER},
+      </if>
+      <if test="stockAfter != null" >
+        #{stockAfter,jdbcType=INTEGER},
+      </if>
+      <if test="stockChange != null" >
+        #{stockChange,jdbcType=INTEGER},
+      </if>
+      <if test="lockStockBefore != null" >
+        #{lockStockBefore,jdbcType=INTEGER},
+      </if>
+      <if test="lockStockAfter != null" >
+        #{lockStockAfter,jdbcType=INTEGER},
+      </if>
+      <if test="lockStockChange != null" >
+        #{lockStockChange,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njupt.swg.mamabuystockservice.stock.entity.StockFlow" >
+    update t_stock_flow
+    <set >
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="stockBefore != null" >
+        stock_before = #{stockBefore,jdbcType=INTEGER},
+      </if>
+      <if test="stockAfter != null" >
+        stock_after = #{stockAfter,jdbcType=INTEGER},
+      </if>
+      <if test="stockChange != null" >
+        stock_change = #{stockChange,jdbcType=INTEGER},
+      </if>
+      <if test="lockStockBefore != null" >
+        lock_stock_before = #{lockStockBefore,jdbcType=INTEGER},
+      </if>
+      <if test="lockStockAfter != null" >
+        lock_stock_after = #{lockStockAfter,jdbcType=INTEGER},
+      </if>
+      <if test="lockStockChange != null" >
+        lock_stock_change = #{lockStockChange,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njupt.swg.mamabuystockservice.stock.entity.StockFlow" >
+    update t_stock_flow
+    set sku_id = #{skuId,jdbcType=BIGINT},
+      stock_before = #{stockBefore,jdbcType=INTEGER},
+      stock_after = #{stockAfter,jdbcType=INTEGER},
+      stock_change = #{stockChange,jdbcType=INTEGER},
+      lock_stock_before = #{lockStockBefore,jdbcType=INTEGER},
+      lock_stock_after = #{lockStockAfter,jdbcType=INTEGER},
+      lock_stock_change = #{lockStockChange,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

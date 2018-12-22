@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!--classPathEntry:数据库的JDBC驱动 -->
+    <classPathEntry
+            location="D:\Repositories\Maven\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+
+        <!-- 注意这里面的顺序确定的，不能随变更改 -->
+        <!-- 自定义的分页插件 <plugin type="com.deppon.foss.module.helloworld.shared.PaginationPlugin"/> -->
+
+        <!-- 可选的（0 or 1） -->
+        <!-- 注释生成器 -->
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 必须的（1 required） -->
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/mama-buy-user"
+                        userId="root" password="root">
+        </jdbcConnection>
+
+        <!-- 可选的（0 or 1） -->
+        <!-- 类型转换器或者加类型解析器 -->
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+
+        <!-- 必须的（1 required） -->
+        <!-- java模型生成器 -->
+        <!-- targetProject:自动生成代码的位置 -->
+        <javaModelGenerator targetPackage="com.njupt.swg.mamabuyuserservice.user.entity"
+                            targetProject="F:\mama-buy\mama-buy-user-service\src\main\java"
+                             >
+            <property name="enableSubPackages" value="true" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 必须的（1 required） -->
+        <!-- map xml 生成器 -->
+        <sqlMapGenerator targetPackage="com.njupt.swg.mamabuyuserservice.user.dao"
+                         targetProject="F:\mama-buy\mama-buy-user-service\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 可选的（0 or 1） -->
+        <!-- mapper 或者就是dao接口生成器 -->
+        <javaClientGenerator targetPackage="com.njupt.swg.mamabuyuserservice.user.dao"
+                             targetProject="F:\mama-buy\mama-buy-user-service\src\main\java"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 必须的（1...N） -->
+        <!-- pojo 实体生成器 -->
+        <!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
+        <!-- schema即为数据库名 可不写 -->
+        <table  tableName="t_user_0" domainObjectName="User"
+               enableInsert="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                enableSelectByExample="false" selectByExampleQueryId="false">
+            <!-- 忽略字段 可选的（0 or 1） -->
+            <!-- <ignoreColumn column="is_use" /> -->
+            <!--//无论字段是什么类型，生成的类属性都是varchar。 可选的（0 or 1） 测试无效 -->
+            <!-- <columnOverride column="city_code" jdbcType="VARCHAR" /> -->
+        </table>
+    </context>
+</generatorConfiguration>
