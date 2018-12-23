@@ -22,6 +22,7 @@
         <module>mama-buy-trade-service</module>
         <module>mama-buy-stock-service</module>
         <module>mama-buy-schedule-service</module>
+        <module>mama-buy-keygen-service</module>
     </modules>
 
     <properties>

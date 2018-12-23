@@ -1,0 +1,26 @@
+server:
+  port: 8006
+spring:
+  application:
+    name: key-generator
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: config-server
+    stream:
+      kafka:
+        binder:
+          brokers: ${kafka.brokers.host}
+          zk-nodes: ${zookeeper.host}
+          auto-create-topics: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://111.231.119.253:8761/eureka
+#  instance:
+#    ip-address: 47.93.236.80
+#    prefer-ip-address: true
+zk:
+  host: ${zookeeper.host}

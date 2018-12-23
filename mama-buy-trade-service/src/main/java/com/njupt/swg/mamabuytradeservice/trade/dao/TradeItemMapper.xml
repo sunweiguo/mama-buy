@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njupt.swg.mamabuytradeservice.trade.dao.TradeItemMapper" >
+  <resultMap id="BaseResultMap" type="com.njupt.swg.mamabuytradeservice.trade.entity.TradeItem" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_uuid" property="userUuid" jdbcType="BIGINT" />
+    <result column="trade_no" property="tradeNo" jdbcType="BIGINT" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+    <result column="sku_image_url" property="skuImageUrl" jdbcType="VARCHAR" />
+    <result column="current_price" property="currentPrice" jdbcType="DECIMAL" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_uuid, trade_no, sku_id, sku_name, sku_image_url, current_price, quantity, 
+    total_price, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_trade_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_trade_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.TradeItem" >
+    insert into t_trade_item (id, user_uuid, trade_no, 
+      sku_id, sku_name, sku_image_url, 
+      current_price, quantity, total_price, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{userUuid,jdbcType=BIGINT}, #{tradeNo,jdbcType=BIGINT}, 
+      #{skuId,jdbcType=BIGINT}, #{skuName,jdbcType=VARCHAR}, #{skuImageUrl,jdbcType=VARCHAR}, 
+      #{currentPrice,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into t_trade_item
+    (
+    user_uuid, trade_no,
+    sku_id,sku_name, sku_image_url,
+    current_price, quantity, total_price
+    )
+    values
+    <foreach collection="tradeItemList" item="item" index="index" separator=",">
+      (
+      #{item.userUuid}, #{item.tradeNo},
+      #{item.skuId}, #{item.skuName}, #{item.skuImageUrl},
+      #{item.currentPrice}, #{item.quantity}, #{item.totalPrice}
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.TradeItem" >
+    insert into t_trade_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="skuName != null" >
+        sku_name,
+      </if>
+      <if test="skuImageUrl != null" >
+        sku_image_url,
+      </if>
+      <if test="currentPrice != null" >
+        current_price,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=BIGINT},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuName != null" >
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuImageUrl != null" >
+        #{skuImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPrice != null" >
+        #{currentPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.TradeItem" >
+    update t_trade_item
+    <set >
+      <if test="userUuid != null" >
+        user_uuid = #{userUuid,jdbcType=BIGINT},
+      </if>
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuName != null" >
+        sku_name = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuImageUrl != null" >
+        sku_image_url = #{skuImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPrice != null" >
+        current_price = #{currentPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.TradeItem" >
+    update t_trade_item
+    set user_uuid = #{userUuid,jdbcType=BIGINT},
+      trade_no = #{tradeNo,jdbcType=BIGINT},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      sku_name = #{skuName,jdbcType=VARCHAR},
+      sku_image_url = #{skuImageUrl,jdbcType=VARCHAR},
+      current_price = #{currentPrice,jdbcType=DECIMAL},
+      quantity = #{quantity,jdbcType=INTEGER},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njupt.swg.mamabuytradeservice.trade.dao.TradeMapper" >
+  <resultMap id="BaseResultMap" type="com.njupt.swg.mamabuytradeservice.trade.entity.Trade" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="trade_no" property="tradeNo" jdbcType="BIGINT" />
+    <result column="user_uuid" property="userUuid" jdbcType="BIGINT" />
+    <result column="payment" property="payment" jdbcType="DECIMAL" />
+    <result column="paymeny_type" property="paymenyType" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="payment_time" property="paymentTime" jdbcType="TIMESTAMP" />
+    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, trade_no, user_uuid, payment, paymeny_type, status, payment_time, close_time, 
+    create_time, update_time
+  </sql>
+  <select id="selectByTradeNo" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_trade
+    where trade_no = #{tradeNo,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from t_trade
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_trade
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.Trade" >
+    insert into t_trade (id, trade_no, user_uuid, 
+      payment, paymeny_type, status, 
+      payment_time, close_time, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{tradeNo,jdbcType=BIGINT}, #{userUuid,jdbcType=BIGINT}, 
+      #{payment,jdbcType=DECIMAL}, #{paymenyType,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+      #{paymentTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.Trade" >
+    insert into t_trade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="paymenyType != null" >
+        paymeny_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="paymentTime != null" >
+        payment_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=BIGINT},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=BIGINT},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=DECIMAL},
+      </if>
+      <if test="paymenyType != null" >
+        #{paymenyType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="paymentTime != null" >
+        #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.Trade" >
+    update t_trade
+    <set >
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=BIGINT},
+      </if>
+      <if test="userUuid != null" >
+        user_uuid = #{userUuid,jdbcType=BIGINT},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=DECIMAL},
+      </if>
+      <if test="paymenyType != null" >
+        paymeny_type = #{paymenyType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="paymentTime != null" >
+        payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njupt.swg.mamabuytradeservice.trade.entity.Trade" >
+    update t_trade
+    set trade_no = #{tradeNo,jdbcType=BIGINT},
+      user_uuid = #{userUuid,jdbcType=BIGINT},
+      payment = #{payment,jdbcType=DECIMAL},
+      paymeny_type = #{paymenyType,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
