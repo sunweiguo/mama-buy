@@ -2,7 +2,7 @@
 
 只是对电商中的核心点做了一些实现。涉及以下的知识点：
 
-### 1.maven聚合工程创建
+### :one:.maven聚合工程创建
 `maven`聚合工程的创建，创建`eureka`注册中心服务端（`mama-buy-server-registry`），还可能涉及其他的组件，比如`fiegn`接口调用、`zuul`网关实现（未实现）、`stream`消息驱动、`sleuth`链路追踪（这里也没去追踪）、`hystrix`服务降级和熔断（没有去做）、`spring security`实现用户信息校验
 
 ### 2.消息总线
