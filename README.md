@@ -1,4 +1,4 @@
-本代码仓库是关[mamabuy笔记](https://github.com/sunweiguo/swgBook/tree/master/mamabuy)的代码仓库。
+本代码仓库是关于[mamabuy笔记](https://github.com/sunweiguo/swgBook/tree/master/mamabuy)的代码仓库。
 
 只是对电商中的核心点做了一些实现。设计以下的知识点：
 
