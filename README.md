@@ -2,8 +2,8 @@
 
 只是对电商中的核心点做了一些实现。设计以下的知识点：
 
-- 1.`maven`聚合工程的创建
-- 2.`zookeeper`+`kafka`+`actuator`做成一个自动从git上拉取配置并刷新
+- 1.`maven`聚合工程的创建，创建`eureka`注册中心服务端，还可能涉及其他的组件，比如`fiegn`接口调用、`zuul`网关实现（未实现）、`stream`消息驱动、`sleuth`链路追踪（这里也没去追踪）、`hystrix`服务降级和熔断（没有去做）、`spring security`实现用户信息校验
+- 2.`spring-cloud-config`+`zookeeper`+`kafka`+`actuator`做成一个消息总线，自动从git上拉取配置并刷新
 - 3.`shardingJDBC`分库分表中间件的使用
 - 4.全局异常处理
 - 5.`spring session`+`redis`实现分布式`session`管理，并且探讨了实现原理
