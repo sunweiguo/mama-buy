@@ -9,7 +9,7 @@ spring:
         git:
           uri: https://github.com/sunweiguo/spring-cloud-config-center.git
           username: sunweiguo
-          password: 22daguozi
+          password: xxx
           search-paths: gateway-config,user-service-config,trade-service-config,stock-service-config,common-config,key-generator-config,scheduler-config
     bus:
       trace:
