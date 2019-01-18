@@ -1,5 +1,10 @@
 ## 本代码仓库是关于[mamabuy笔记](https://github.com/sunweiguo/swgBook/tree/master/mamabuy)的代码仓库。
 
+本实践只有后端代码，另一个项目：https://github.com/sunweiguo/spring-cloud-for-snailmall
+
+借鉴了这里很多的思想，并且拥有完整的前后端代码。体验地址为：www.oursnail.cn
+
+
 只是对电商中的核心点做了一些实现。涉及以下的知识点：
 
 ### :one:maven聚合工程创建
