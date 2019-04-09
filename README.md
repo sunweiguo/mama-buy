@@ -4,7 +4,7 @@
 
 借鉴了这里很多的思想，并且拥有完整的前后端代码。体验地址为：www.oursnail.cn (2019/1/25说明 暂时不可用)
 
-另外，我会花很多心思在我的博客上： http://fourcolor.oursnail.cn
+另外，我会花很多心思在我的博客上： https://sunweiguo.github.io
 
 
 只是对电商中的核心点做了一些实现。涉及以下的知识点：
