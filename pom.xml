@@ -43,7 +43,7 @@
         <commons.codec.version>1.10</commons.codec.version>
         <jedis.version>2.9.0</jedis.version>
         <lombok.version>1.16.6</lombok.version>
-        <httpclient.version>4.5</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <curator.version>2.10.0</curator.version>
         <swagger.version>2.6.1</swagger.version>
 
