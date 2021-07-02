@@ -49,7 +49,7 @@
 
         <sharding-jdbc.version>2.0.0</sharding-jdbc.version>
         <elastic-job.version>2.1.5</elastic-job.version>
-        <elasticsearch.version>6.2.2</elasticsearch.version>
+        <elasticsearch.version>6.8.15</elasticsearch.version>
         <elasticsearch.rest.version>5.3.3</elasticsearch.rest.version>
 
         <boot.starter.version>1.5.9.RELEASE</boot.starter.version>
